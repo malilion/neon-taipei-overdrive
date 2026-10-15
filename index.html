@@ -1865,8 +1865,8 @@ function attackRail() {
       });
   });
   // visuals
-  spawnBeam(start, end, COL.mag, 0.45, 0.5, { k: 2.6 });
-  spawnBeam(start, end, 0xffffff, 0.12, 0.35, { k: 3 });
+  spawnBeam(start, end, COL.mag, 0.32, 0.45, { k: 2.0 });
+  spawnBeam(start, end, 0xffffff, 0.09, 0.3, { k: 2.4 });
   const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 0, 1), dir);
   for (let i = 0; i < 12; i++) {
     const p = V3().copy(start).addScaledVector(dir, 3 + i * 5);
