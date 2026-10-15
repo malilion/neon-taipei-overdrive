@@ -1,164 +1,182 @@
-# 霓虹台北：超載 NEON TAIPEI // OVERDRIVE
+# Neon Taipei Overdrive
 
-## 簡介
+**English** · [繁體中文](README.zh-TW.md)
 
-《霓虹台北：超載》是一款在瀏覽器裡執行的 3D 賽博龐克動作戰鬥遊戲。舞台是西門町與信義商圈融合而成的雨夜台北：潮濕的柏油路倒映著滿街繁體中文霓虹招牌，彩虹斑馬線在腳下流動，遠方的「台北 101 能量塔」不斷湧出青色與紫紅色的能量流光。你扮演最後一名在線的賽博特工，揮舞電漿雙刃、軌道砲與量子散彈槍，對抗一波波失控的觀光機甲、霓虹無人機、暴走機車，以及每五波降臨一次的巨型 BOSS「天燈母艦」。擊敗敵人累積經驗、在升級時挑選強化模組，升到 LV.3 之後就能喚醒 101 能量塔，發動天基雷射「101 雷霆天降」清空整個戰場。
+**Live demo:** https://malilion.github.io/neon-taipei-overdrive/
 
-整個遊戲只有一個 `index.html`：所有招牌、地面、角色與敵人模型、粒子特效都在執行時用程式繪製與組合，音樂與音效也是即時合成。專案裡沒有任何圖片、模型或音訊檔，也不需要建置步驟。
+![Title screen](docs/screenshots/01-menu.png)
 
-## 快速開始
+## Introduction
 
-**直接開啟**
+*Neon Taipei Overdrive* is a browser-based 3D cyberpunk action combat game. The stage is a rainy Taipei night that blends Ximending with the Xinyi district: wet asphalt mirrors Traditional Chinese neon signs, a rainbow scramble crossing flows underfoot, and the distant Taipei 101 Energy Tower pours cyan and magenta light into the sky. You are the last cyber-agent still online — dual plasma blades, an EMP railgun, and a quantum shotgun against waves of runaway tourist mechs, neon drones, kamikaze scooters, and every fifth wave the giant boss Sky Lantern Mothership. Defeat enemies for EXP, pick upgrades on level-up, and at LV.3 awaken the 101 tower to fire the orbital laser **101 Thunderfall** and clear the field.
 
-用桌面版 Chrome、Edge 或 Firefox 開啟 `index.html`，點擊「ENGAGE 進入戰區」即可開始。遊戲會從 CDN 載入 three.js 與 Google Fonts，所以第一次開啟需要網路連線；字型載入失敗時會自動改用系統字型。
+The whole game is a single `index.html`: signs, ground, characters, enemies, and particles are built at runtime in code; music and SFX are synthesised on the fly. There are no image, model, or audio asset files, and no build step.
 
-**用靜態伺服器**
+## Quick start
 
-如果瀏覽器限制本機檔案，或你想在區網內分享，任選一種靜態伺服器：
+**Open directly**
+
+Open `index.html` in desktop Chrome, Edge, or Firefox and click **ENGAGE**. The game loads three.js and Google Fonts from CDNs, so the first launch needs a network connection; if fonts fail to load it falls back to system fonts.
+
+**Static server**
+
+If the browser restricts local files, or you want to share on a LAN:
 
 ```bash
 python3 -m http.server 8080
-# 或
+# or
 npx http-server -p 8080
 ```
 
-然後開啟 <http://localhost:8080/>。
+Then open <http://localhost:8080/>.
 
-**用 `?seed=` 指定種子**
+**Reproducible city with `?seed=`**
 
-城市佈局（大樓高度與位置、招牌配置、地面紋理、空中車流等）由種子決定。在網址後加上 `?seed=`，同一個種子永遠會生成同一座城市：
+City layout (building heights and placement, signs, ground texture, aerial traffic, etc.) is driven by a seed. Append `?seed=` so the same seed always builds the same city:
 
 ```text
 index.html?seed=101
 http://localhost:8080/?seed=taipei
 ```
 
-種子可以是任意文字（最多 32 字元）。沒有指定時會隨機產生一個，並顯示在開始畫面與結算畫面上，方便你記下來分享。種子只影響城市外觀；敵人生成、爆擊與掉落仍是隨機的。
+Any text up to 32 characters works. With no seed, one is generated at random and shown on the title and results screens so you can share it. The seed only affects the city look; enemy spawns, crits, and drops stay random.
 
-## 截圖展示
+## Screenshots
 
-> 以下截圖是在無 GPU 的環境用軟體渲染擷取（`?seed=101`）。在一般顯示卡上執行時畫面相同，但幀率流暢許多。
+> Captured with software rendering and no GPU (`?seed=101`). On a normal GPU the frame looks the same at a much higher framerate.
 
 | | |
 |---|---|
-| ![開始畫面](docs/screenshots/01-menu.png) | ![街頭混戰](docs/screenshots/02-combat.png) |
-| **開始畫面**：操作說明、城市種子與設定 | **街頭混戰**：軌道砲貫穿，HUD 顯示波次、分數與連擊 |
-| ![升級強化](docs/screenshots/03-perks.png) | ![BOSS 天燈母艦](docs/screenshots/04-boss.png) |
-| **升級三選一**：從 13 種強化模組中挑選 | **BOSS 戰**：天燈母艦與頂部血條 |
-| ![101 雷霆天降](docs/screenshots/05-ultimate.png) | |
-| **必殺技命中瞬間**：全場閃白，連鎖閃電讓每個敵人各受 300 傷害 | |
+| ![Title screen](docs/screenshots/01-menu.png) | ![Street combat](docs/screenshots/02-combat.png) |
+| **Title screen**: controls, city seed, settings | **Street combat**: piercing railgun; HUD shows wave, score, combo |
+| ![Perk select](docs/screenshots/03-perks.png) | ![Boss](docs/screenshots/04-boss.png) |
+| **Choose 1 of 3**: pick from 13 upgrade modules | **Boss fight**: Sky Lantern Mothership and top HP bar |
+| ![101 Thunderfall](docs/screenshots/05-ultimate.png) | |
+| **Ultimate hit**: full-screen flash; chain lightning deals 300 to every enemy | |
 
-## 操作方式
+## Controls
 
-| 按鍵 | 動作 |
+| Key | Action |
 |---|---|
-| `W` `A` `S` `D` | 移動 |
-| 滑鼠移動 | 轉動視角／瞄準（準星對準敵人時會變紅鎖定） |
-| 滑鼠左鍵（可長按） | 攻擊 |
-| `1` `2` `3`／滑鼠滾輪 | 切換武器 |
-| `Shift`／滑鼠右鍵 | 衝刺閃避（衝刺期間無敵） |
-| `R`／`Space` | 必殺技「101 雷霆天降」（LV.3 解鎖、能量滿時） |
-| `1` `2` `3`（升級畫面） | 選擇強化模組（也可直接點擊卡片） |
-| `Q` | 切換地面即時倒影（關閉可提升效能） |
-| `M` | 靜音 |
-| `Esc` | 暫停（暫停畫面可調整靈敏度、音量、畫面震動） |
-| 方向鍵 | 備用視角控制（無法鎖定滑鼠時使用） |
+| `W` `A` `S` `D` | Move |
+| Mouse move | Look / aim (crosshair turns red when locked on an enemy) |
+| Left mouse (hold OK) | Attack |
+| `1` `2` `3` / mouse wheel | Switch weapon |
+| `Shift` / right mouse | Dash (invincible while dashing) |
+| `R` / `Space` | Ultimate **101 Thunderfall** (unlocked at LV.3, when charged) |
+| `1` `2` `3` (on level-up) | Pick a perk (or click a card) |
+| `Q` | Toggle real-time ground reflections (off for more FPS) |
+| `M` | Mute |
+| `Esc` | Pause (sensitivity, volume, screen shake) |
+| Arrow keys | Fallback look when pointer lock is unavailable |
 
-第一次點擊畫面時會鎖定滑鼠游標；按 `Esc` 解除並暫停。
+The first click locks the pointer; `Esc` unlocks and pauses.
 
-## 玩法
+## Gameplay
 
-**武器**
+**Weapons**
 
-| 武器 | 定位 | 傷害 | 特性 |
+| Weapon | Role | Damage | Notes |
 |---|---|---|---|
-| 1．高頻電漿雙刃 | 近戰高速斬擊 | 25 | 青色弧形刀光、攻速快、微幅擊退，還能斬掉敵方子彈 |
-| 2．電磁脈衝軌道砲 | 遠程貫穿狙擊 | 65 | 洋紅雷射直線貫穿所有敵人，附環狀電磁波與畫面震動，冷卻較長 |
-| 3．量子散彈鎮暴槍 | 中近距離壓制 | 18 × 9 | 扇形金色彈丸，強力擊退並短暫緩速，近距離全中可破百 |
+| 1. High-freq plasma twin blades | Fast melee | 25 | Cyan arc slash, high attack rate, light knockback; can cut enemy bullets |
+| 2. EMP rail cannon | Piercing sniper | 65 | Magenta laser pierces all enemies, ring pulse + screen shake, longer cooldown |
+| 3. Quantum shotgun | Mid-close suppression | 18 × 9 | Fan of gold pellets, strong knockback and brief slow; point-blank can break 100 |
 
-每種武器都有爆擊，爆擊時傷害數字會放大並標示 CRIT。
+Every weapon can crit; crit damage numbers enlarge and show **CRIT**.
 
-**波次與 BOSS**
+**Waves and boss**
 
-敵人以波次出現，每波清空後會修復 15% HP、獲得波次獎勵分數並施放小型煙火。波數越高，敵人越多、越耐打，種類也越多。每第 5 波會出現 BOSS「天燈母艦」，攻擊模式包括環形彈幕、瞄準連射、召喚無人機；血量低於一半進入第二階段，還會從天空投下燃燒天燈。擊墜後在 101 上空施放跨年式煙火，並掉落多顆道具膠囊。
+Enemies spawn in waves. Clearing a wave restores 15% HP, awards a wave bonus, and fires a small firework. Higher waves mean more enemies, more HP, and more types. Every 5th wave spawns the boss **Sky Lantern Mothership**: bullet rings, aimed bursts, drone summons; below half HP it enters phase 2 and rains burning lanterns. Defeat drops New Year–style fireworks over 101 and several power-up capsules.
 
-**敵人**
+**Enemies**
 
-| 敵人 | 行為 |
+| Enemy | Behaviour |
 |---|---|
-| 霓虹無人機 | 在空中盤旋射擊，不時俯衝撞擊 |
-| 失控觀光機甲 | 地面推進，近身蓄力重擊 |
-| 暴走機車 | 鎖定方向後高速衝撞並自爆；被擊破時的爆炸也會波及其他敵人 |
-| 狙擊無人機 | 遠距離瞄準，先拉出紅色預警線再開火，看到紅線要閃開 |
-| 暴走觀光巴士機甲 | 重裝單位，五連發扇形砲擊與重拳 |
-| 天燈母艦（BOSS） | 每 5 波出現，兩階段攻擊 |
+| Neon drone | Hovers and shoots; occasional dive |
+| Runaway tourist mech | Ground chase; charged melee smash |
+| Kamikaze scooter | Locks a direction, high-speed ram and self-destruct; explosion hits nearby enemies |
+| Sniper drone | Long-range aim with a red telegraph line before firing — dodge the line |
+| Heavy tourist-bus mech | Armoured; five-shot fan and heavy punch |
+| Sky Lantern Mothership (boss) | Every 5 waves; two phases |
 
-**經驗、等級與強化模組**
+**EXP, levels, and perks**
 
-擊敗敵人會掉落綠色經驗晶球（靠近時自動吸取）。每次升級會爆發金色光柱、提升最大 HP 與基礎傷害，並暫停戰鬥讓你從三張隨機卡片中挑選一項強化。共 13 種：
+Defeated enemies drop green EXP orbs (auto-magnet when close). Each level-up fires a gold pillar, raises max HP and base damage, and pauses combat so you pick one of three random cards. There are 13 upgrades:
 
-- 數值強化：傷害、爆擊率、冷卻、移速、最大 HP、擊殺回血、拾取範圍與經驗加成、必殺充能速度。
-- 霓虹力場：定期生成可抵擋一次傷害的護盾。
-- 全息衛星：環繞你的能量球，碰到敵人就造成傷害。
-- 電漿劍氣：雙刃揮砍時射出貫穿劍氣。
-- 連鎖電弧：軌道砲命中後對附近敵人放電。
-- 彈丸增幅：散彈槍增加彈丸數。
+- Stat boosts: damage, crit rate, cooldown, move speed, max HP, kill heal, pickup range / EXP bonus, ultimate charge rate
+- Neon barrier: periodic shield that blocks one hit
+- Holo satellites: orbiting orbs that damage on contact
+- Plasma sword waves: piercing waves from blade swings
+- Chain arcs: railgun hits discharge to nearby enemies
+- Extra pellets: more shotgun pellets
 
-**必殺技：台北超載・101 雷霆天降**
+**Ultimate: Taipei Overdrive — 101 Thunderfall**
 
-升到 LV.3 解鎖，能量會隨命中、擊殺與時間累積。能量滿時按 `R` 施放：全場進入慢動作並閃現霓虹色差，台北 101 能量塔射出巨型天基雷射轟擊戰場，連鎖閃電逐一擊中所有敵人，每個敵人受到 300 傷害，小型無人機直接清除。
+Unlocked at LV.3. Charge builds from hits, kills, and time. When full, press `R`: slow-mo and chromatic flash, Taipei 101 fires a massive orbital laser, chain lightning hits every enemy for 300 damage each, and small drones are wiped.
 
-**道具膠囊**
+**Power-up capsules**
 
-| 道具 | 效果 |
+| Capsule | Effect |
 |---|---|
-| 超頻核心 | 8 秒內傷害 ×2 |
-| 神經急速 | 8 秒內冷卻減半、移速 +30% |
-| 霓虹護盾 | 抵擋 3 次傷害 |
-| 珍奶補給 | 回復 40 HP |
+| Overclock core | Damage ×2 for 8s |
+| Neural haste | Cooldown halved, move speed +30% for 8s |
+| Neon shield | Block 3 hits |
+| Bubble-tea heal | Restore 40 HP |
 
-**分數**
+**Score**
 
-擊殺得分會乘上連擊倍率（最高 ×3），清波另有獎勵。結算時依分數給予 S／A／B／C 評級，最高紀錄會存在瀏覽器的 localStorage 裡。
+Kill points scale with combo multiplier (up to ×3); waves add a clear bonus. Results screen grades S / A / B / C; best score is stored in `localStorage`.
 
-## 渲染技術
+## Rendering
 
-- **Three.js r160**：透過 `<script type="importmap">` 從 jsDelivr 載入 `three` 與 `three/addons/`，不需要打包工具。
-- **後處理鏈**：`EffectComposer` → `RenderPass` → `UnrealBloomPass`（HDR 輝光）→ 自訂 `ShaderPass`（RGB 色差、掃描線、暗角、故障位移、受傷紅邊、必殺霓虹色調）→ `OutputPass`（ACES 色調映射與 sRGB 轉換）。發光材質使用大於 1 的 HDR 顏色，交給 Bloom 產生霓虹光暈。
-- **潮濕地面倒影**：底層是 `Reflector` 即時鏡面，上面疊一層半透明柏油材質，水窪區域透明度較高，所以招牌倒影會從積水處透出來。地面材質用 `onBeforeCompile` 注入著色器，讓六角能量格紋在玩家周圍發亮並向外擴散波紋；必殺技命中時還會推出一道衝擊環。雨絲、浮游粒子、血條等裝飾物放在獨立圖層，不參與鏡面渲染以節省效能。
-- **程式生成的貼圖**：所有招牌（直式、橫式、牌樓）、大樓窗戶、店面、地面六角紋、天燈紙面都用 `CanvasTexture` 即時繪製，文字使用 Noto Sans TC 與 Orbitron。
-- **程式生成的模型**：特工、機甲、機車、無人機、天燈母艦與 101 能量塔，都是由基本幾何體組合而成。101 能量塔使用自訂著色器，呈現沿稜線與樓層向上流動的能量。
-- **環境光照**：用 `PMREMGenerator` 把一個由霓虹面板組成的小場景烘焙成環境貼圖，讓金屬材質反射霓虹色光。天空是程式化的漸層與星空著色器。
-- **特效系統**：GPU 點粒子（5,000 顆，加法混合）負責火花、爆炸與煙火；`InstancedMesh` 負責幾何碎片與斑馬線；刀光、雷射光束、光柱與震波環都使用自訂著色器；連鎖閃電是每幀重新抖動的折線。
-- **效能**：靜態城市幾何依材質合併（`BufferGeometryUtils.mergeGeometries`），招牌材質依貼圖共用。整個場景閒置時約 365 個繪製呼叫，二十多隻敵人同時在場時約 900 個。
-- **音訊**：用 WebAudio 即時合成所有音效與一首 108 BPM 的合成器浪潮配樂，戰況越激烈、BOSS 出現時，配樂會自動加強。
-- **種子**：`?seed=` 會經過字串雜湊後交給 mulberry32 偽隨機數產生器，只在生成世界時暫時取代 `Math.random`。
+- **Three.js r160** via `<script type="importmap">` from jsDelivr (`three` and `three/addons/`); no bundler.
+- **Post chain**: `EffectComposer` → `RenderPass` → `UnrealBloomPass` (HDR bloom) → custom `ShaderPass` (RGB split, scanlines, vignette, glitch, hurt edge, ultimate neon grade) → `OutputPass` (ACES + sRGB). Emissive materials use HDR colours > 1 so bloom makes neon glow.
+- **Wet ground reflections**: a `Reflector` mirror under a translucent asphalt layer; puddles are more transparent so sign reflections show through. Ground material uses `onBeforeCompile` for a hex energy grid that brightens near the player and ripples outward; the ultimate pushes a shock ring. Rain, floaters, and HP bars sit on a separate layer and skip mirror rendering.
+- **Procedural textures**: all signs (vertical, horizontal, gate), windows, shopfronts, hex ground, and lantern paper are `CanvasTexture`s using Noto Sans TC and Orbitron.
+- **Procedural models**: agent, mechs, scooters, drones, mothership, and the 101 tower are primitive assemblies. The tower uses a custom shader for energy flowing up edges and floors.
+- **Lighting**: `PMREMGenerator` bakes a small neon-panel scene into an env map for metal reflections; sky is a procedural gradient + stars shader.
+- **FX**: 5,000 additive GPU point particles (sparks, explosions, fireworks); `InstancedMesh` for shards and zebra bars; custom shaders for slashes, beams, pillars, and shock rings; chain lightning is a jittered polyline rebuilt each frame.
+- **Perf**: static city geometry merged per material (`BufferGeometryUtils.mergeGeometries`); sign materials shared by texture. Idle scene ~365 draw calls; ~20+ enemies ~900.
+- **Audio**: WebAudio synthesises all SFX and a 108 BPM synthwave track that intensifies in combat and on boss waves.
+- **Seed**: `?seed=` is string-hashed into mulberry32 and temporarily replaces `Math.random` only while the world is built.
 
-## 專案結構
+## Project layout
 
 ```text
 neon-taipei-overdrive/
-├── index.html                # 整個遊戲：HTML 介面 + CSS HUD + JavaScript 模組
-├── README.md
+├── index.html                # Full game: HTML UI + CSS HUD + JS module
+├── LICENSE                   # Apache-2.0
+├── README.md                 # English (this file)
+├── README.zh-TW.md           # Traditional Chinese
+├── .github/workflows/pages.yml
 └── docs/
-    └── screenshots/          # README 用截圖
+    └── screenshots/          # README screenshots
 ```
 
-`index.html` 內部依區段組織，每段開頭都有編號註解：
+`index.html` is organised in numbered sections:
 
-| 區段 | 內容 |
+| Section | Contents |
 |---|---|
-| 0. Utilities／種子 | 數學工具、`?seed=` 雜湊與 mulberry32 |
-| 1. Audio | WebAudio 音效與合成配樂 |
-| 2. Renderer / Post-FX | 渲染器、場景、後處理鏈 |
-| 3. Canvas Textures | 霓虹招牌、窗戶、店面貼圖產生器 |
-| 4–7. 環境／地面／城市／101 | 天空、燈光、潮濕倒影地面、街景、能量塔 |
-| 8–9. 粒子與特效 | GPU 粒子、碎片、刀光、光束、震波、閃電 |
-| 10–11. 角色與敵人模型 | 特工與武器、無人機、機甲 |
-| 12–14. 狀態、HUD、戰鬥 | 遊戲狀態、浮動傷害數字、三把武器 |
-| 15–15d. 敵人 AI、波次、強化 | 生成與 AI、機車／狙擊／BOSS、波次、強化模組、道具、分數 |
-| 16. 必殺技 | 101 雷霆天降 |
-| 17–19. 輸入、相機、HUD 更新 | 滑鼠鎖定、第三人稱相機、雷達 |
-| 20–22. 流程、主迴圈、啟動 | 開始／結算／重來、遊戲迴圈、世界生成 |
+| 0. Utilities / seed | Math helpers, `?seed=` hash, mulberry32 |
+| 1. Audio | WebAudio SFX and soundtrack |
+| 2. Renderer / Post-FX | Renderer, scene, post chain |
+| 3. Canvas textures | Neon sign / window / shop generators |
+| 4–7. Env / ground / city / 101 | Sky, lights, wet reflector ground, streetscape, energy tower |
+| 8–9. Particles & FX | GPU particles, shards, slashes, beams, shocks, lightning |
+| 10–11. Characters & enemies | Agent + weapons, drones, mechs |
+| 12–14. State, HUD, combat | Game state, floating damage, three weapons |
+| 15–15d. AI, waves, perks | Spawns/AI, scooter/sniper/boss, waves, perks, capsules, score |
+| 16. Ultimate | 101 Thunderfall |
+| 17–19. Input, camera, HUD | Pointer lock, third-person camera, radar |
+| 20–22. Flow, loop, boot | Start / results / retry, game loop, world build |
 
-除錯用：瀏覽器主控台可以使用 `window.NTO`（例如 `NTO.startWave(5)` 直接跳到 BOSS 波）。
+Debug: browser console exposes `window.NTO` (e.g. `NTO.startWave(5)` to jump to a boss wave).
+
+## License
+
+Copyright 2026 Malilion. Licensed under the [Apache License, Version 2.0](LICENSE).
+
+### Third-party
+
+- [three.js](https://threejs.org/) r160 — MIT License (loaded from jsDelivr)
+- [Orbitron](https://fonts.google.com/specimen/Orbitron), [Rajdhani](https://fonts.google.com/specimen/Rajdhani), [Noto Sans TC](https://fonts.google.com/noto/specimen/Noto+Sans+TC) — SIL Open Font License (Google Fonts)
