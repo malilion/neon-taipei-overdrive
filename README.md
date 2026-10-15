@@ -46,7 +46,7 @@ http://localhost:8080/?seed=taipei
 | ![升級強化](docs/screenshots/03-perks.png) | ![BOSS 天燈母艦](docs/screenshots/04-boss.png) |
 | **升級三選一**：從 13 種強化模組中挑選 | **BOSS 戰**：天燈母艦與頂部血條 |
 | ![101 雷霆天降](docs/screenshots/05-ultimate.png) | |
-| **必殺技**：101 能量塔發射天基雷射 | |
+| **必殺技命中瞬間**：全場閃白，連鎖閃電讓每個敵人各受 300 傷害 | |
 
 ## 操作方式
 
